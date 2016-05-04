@@ -10,9 +10,6 @@ img {
   max-width: 100%;
 }
 html, body{
-  // height: 100%;
-  // width: 100%;
-  // overflow: hidden;
 }
 #sidebar{
   position: absolute;
@@ -33,62 +30,18 @@ html, body{
   transform-style: preserve-3d;
   transform: translateZ(-500px);
   transition: .3s ease-in-out;
-  // transform-origin: 50% 0 260px;
-  // animation: rotate 10s infinite linear;
 }
-//figure
+
 .display-face{
   position: absolute;
   display: block;
   background: rgba(200, 200, 200, .5);
   width: 300px;
   height: 300px;
-  // transform-origin: 50% 0 260px;
 }
-// //front
-// .face-0{
-//   transform: rotateY(30deg);
-// }
-// //back
-// .face-1{
-//   transform: rotateY(60deg);
-// }
-// //left
-// .face-2{
-//   transform: rotateY(90deg);
-// }
-// //right
-// .face-3{
-//   transform: rotateY(120deg);
-// }
 
-
-.stage {
-  width: 300px;
-  height: 300px;
-  margin: 100px auto;
-  perspective: 1600px;
-  perspective-origin: 50% -240px;
- }
-.cube{
-  transform-style: preserve-3d;
-  animation: rotate 10s infinite linear;
-}
+// animation: rotate 10s infinite linear;
 @keyframes rotate {
   0% { transform: rotateY(0); }
   100% { transform: rotateY(360deg); }
 }
-figure {
-  display: block;
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background-color: #60c2ef;
-  transform-origin: 50% 50% 0;
-}
-.front { transform: translateZ(150px); }
-.back { transform: rotateY(180deg) translateZ(150px); }
-.top { transform: rotateX(90deg) translateZ(150px); }
-.bottom { transform: rotateX(-90deg) translateZ(150px); }
-.left { transform: rotateY(-90deg) translateZ(150px); }
-.right { transform: rotateY(90deg) translateZ(150px); }
