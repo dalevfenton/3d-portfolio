@@ -1,6 +1,9 @@
+var Backbone = require('backbone');
 var React = require('react');
 var $ = require('jquery');
+var _ = require('underscore');
 
+//convert degrees to radians for trig function
 function getTanDeg(deg) {
   var rad = deg * Math.PI/180;
   return Math.tan(rad);
@@ -15,6 +18,19 @@ var Controller = React.createClass({
   },
   componentWillMount: function(){
     window.onresize = this.resetSize;
+    this.props.router.on('route', this.handleRoute);
+    this.handleRoute();
+  },
+  handleRoute: function(e){
+    var found;
+    var currentPost = _.find(this.props.posts, function(post, index){
+      if(post.slug === this.props.router.current){
+        found = index;
+        return true;
+      }
+      return false;
+    }.bind(this));
+    this.setState({facing: found});
   },
   resetSize: function(e){
     // console.log(e);
@@ -22,12 +38,12 @@ var Controller = React.createClass({
   },
   doRotation: function(i, e){
     e.preventDefault();
-    this.setState({facing: i});
+    Backbone.history.navigate(this.props.posts[i].slug, {trigger: true});
+    // this.setState({facing: i});
   },
   render: function(){
     var faces = [];
     var buttons = [];
-    console.log(window);
     //angle is used to rotate the faces around the center of the overall layout
     var angle = 360 / this.props.posts.length;
     //offsetZ sets the origin point to rotate around
@@ -44,6 +60,7 @@ var Controller = React.createClass({
         <div className={"display-face face-"+i} key={i}
           style={ faceStyle }>
           <img src={this.props.posts[i].img_links[0].thumbnail[0]} />
+          <a href={"#" + this.props.posts[i].slug} >{this.props.posts[i].title.rendered}</a>
         </div>
       );
       var button = (
