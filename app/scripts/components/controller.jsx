@@ -9,13 +9,16 @@ function getTanDeg(deg) {
 var Controller = React.createClass({
   getInitialState: function(){
     return {
-      numFaces: 3,
+      faceSize: window.innerWidth*.8,
       facing: 0
     }
   },
-  addFace: function(e){
-    e.preventDefault();
-    this.setState({numFaces: this.state.numFaces + 1 });
+  componentWillMount: function(){
+    window.onresize = this.resetSize;
+  },
+  resetSize: function(e){
+    // console.log(e);
+    this.setState({faceSize: window.innerWidth*.8});
   },
   doRotation: function(i, e){
     e.preventDefault();
@@ -24,25 +27,27 @@ var Controller = React.createClass({
   render: function(){
     var faces = [];
     var buttons = [];
+    console.log(window);
     //angle is used to rotate the faces around the center of the overall layout
-    var angle = 360 / this.state.numFaces;
+    var angle = 360 / this.props.posts.length;
     //offsetZ sets the origin point to rotate around
-    var offsetZ = -150 / Math.abs( getTanDeg(angle/2) );
+    var offsetZ = -(this.state.faceSize/2) / Math.abs( getTanDeg(angle/2) );
     //inline styles for JSX elements
     var offsetStyle = { transformOrigin: "50% 0 " + offsetZ + "px" };
+    var sizeStyle = {width: this.state.faceSize + "px", height: this.state.faceSize + "px" };
     var displayStyle = { transform: "translateZ(-500px)" + "rotateY(-" + this.state.facing * angle + "deg)" };
     displayStyle = $.extend({}, offsetStyle, displayStyle );
     //build JSX for faces divs & button elements
-    for(var i=0; i < this.state.numFaces; i++ ){
-      var faceStyle = $.extend( {}, offsetStyle, {transform: "rotateY(" + angle*i + "deg)" });
+    for(var i=0; i < this.props.posts.length; i++ ){
+      var faceStyle = $.extend( {}, offsetStyle, sizeStyle, {transform: "rotateY(" + angle*i + "deg)" });
       var face = (
         <div className={"display-face face-"+i} key={i}
           style={ faceStyle }>
-          {"Face #" + i}
+          <img src={this.props.posts[i].img_links[0].thumbnail[0]} />
         </div>
       );
       var button = (
-        <button onClick={this.doRotation.bind(this, i)} key={i}>{"Face #" + i}</button>
+        <button onClick={this.doRotation.bind(this, i)} key={i}>{this.props.posts[i].title.rendered}</button>
       );
       faces.push(face);
       buttons.push(button)
@@ -50,10 +55,9 @@ var Controller = React.createClass({
     return (
       <div>
         <div id="sidebar">
-          <button onClick={this.addFace}>Add Face</button>
           {buttons}
         </div>
-        <div id="stage">
+        <div id="stage" style={sizeStyle}>
           <div id="display" style={displayStyle}>
             {faces}
           </div>

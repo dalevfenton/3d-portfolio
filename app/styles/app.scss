@@ -1,5 +1,4 @@
 
-
 *,
 *::before,
 *::after {
@@ -19,8 +18,8 @@ html, body{
 }
 //stage
 #stage{
-  width: 300px;
-  height: 300px;
+  // width: $stageSize;
+  // height: $stageSize;
   margin: 300px auto;
   perspective: 200000px;
   perspective-origin: 50% -50000px;
@@ -36,8 +35,9 @@ html, body{
   position: absolute;
   display: block;
   background: rgba(200, 200, 200, .5);
-  width: 300px;
-  height: 300px;
+  text-align: center;
+  // width: $divSize;
+  // height: $divSize;
 }
 
 // animation: rotate 10s infinite linear;
