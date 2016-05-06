@@ -3,6 +3,8 @@ var React = require('react');
 var $ = require('jquery');
 var _ = require('underscore');
 
+
+var DisplayFace = require('./displayface.jsx');
 //convert degrees to radians for trig function
 function getTanDeg(deg) {
   var rad = deg * Math.PI/180;
@@ -50,7 +52,7 @@ var Controller = React.createClass({
     var offsetZ = -(this.state.faceSize/2) / Math.abs( getTanDeg(angle/2) );
     //inline styles for JSX elements
     var offsetStyle = { transformOrigin: "50% 0 " + offsetZ + "px" };
-    var sizeStyle = {width: this.state.faceSize + "px", height: this.state.faceSize + "px" };
+    var sizeStyle = {width: this.state.faceSize + "px"};
     var displayStyle = { transform: "translateZ(-500px)" + "rotateY(-" + this.state.facing * angle + "deg)" };
     displayStyle = $.extend({}, offsetStyle, displayStyle );
     //build JSX for faces divs & button elements
@@ -59,8 +61,7 @@ var Controller = React.createClass({
       var face = (
         <div className={"display-face face-"+i} key={i}
           style={ faceStyle }>
-          <img src={this.props.posts[i].img_links[0].thumbnail[0]} />
-          <a href={"#" + this.props.posts[i].slug} >{this.props.posts[i].title.rendered}</a>
+          <DisplayFace post={this.props.posts[i]} index={i} />
         </div>
       );
       var button = (
