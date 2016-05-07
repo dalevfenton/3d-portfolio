@@ -26,8 +26,8 @@ var DisplayFace = React.createClass({
             <a href={this.props.post.dvf_source_page} target="_blank">View Source Code</a>
           </div>
           <div className="display-face-navigation">
-            <a className="nav-button nav-prev" href={"#" + this.props.prev.slug}>Previous Project</a>
-            <a className="nav-button nav-next" href={"#" + this.props.next.slug}>Next Project</a>
+            <a className="nav-button nav-prev" href={"#" + this.props.post.cat_rendered[0].category_nicename + "/" + this.props.prev.slug}>Previous Project</a>
+            <a className="nav-button nav-next" href={"#" + this.props.post.cat_rendered[0].category_nicename + "/" + this.props.next.slug}>Next Project</a>
           </div>
         </div>
       </div>

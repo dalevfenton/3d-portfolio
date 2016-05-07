@@ -1,5 +1,6 @@
 var React = require('react');
 var $ = require('jquery');
+var _ = require('underscore');
 
 var DisplayFace = require('./displayface.jsx');
 
@@ -13,6 +14,24 @@ var DisplayPod = React.createClass({
     return {
       facing: 0
     }
+  },
+  componentWillMount: function(){
+    this.props.router.on('route', this.setFacing);
+    this.setFacing();
+  },
+  setFacing: function(){
+    var found;
+    var currentCat = _.find(this.props.posts, function(post, index){
+      if(post.slug === this.props.router.currentPost){
+        found = index;
+        return true;
+      }
+      return false;
+    }.bind(this));
+    if(!found){
+      found = 0;
+    }
+    this.setState({facing: found});
   },
   render: function(){
     var faces = [];
@@ -51,7 +70,8 @@ var DisplayPod = React.createClass({
       var face = (
         <div className={"display-face face-"+i} key={i}
           style={ faceStyle }>
-          <DisplayFace post={this.props.posts[i]} index={i} next={next} prev={prev} />
+          <DisplayFace post={this.props.posts[i]}
+            index={i} next={next} prev={prev} />
         </div>
       );
       // var button = (

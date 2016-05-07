@@ -2,18 +2,19 @@ var Backbone = require('backbone');
 
 var Router = Backbone.Router.extend({
   routes: {
-    '(:slug)': 'parseSlug',
+    ':cat/(:post)': 'parseSlug',
   },
   index: function(){
     this.current = 'index';
   },
-  parseSlug: function(slug){
-    if(slug){
-      this.current = slug;
-    }else{
-      this.current = null;
+  parseSlug: function(cat, post){
+    if(cat){
+      this.currentCat = cat;
+      this.currentPost = post;
+    }else if(post){
+      this.currentCat = cat;
+      this.currentPost = null;
     }
-
   }
 });
 
