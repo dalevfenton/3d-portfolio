@@ -21,29 +21,24 @@ html, body{
   z-index: 10;
 }
 
-#stage, .stage{
-  // width: $stageSize;
-  // height: $stageSize;
+.stage{
   margin: 0 auto;
   perspective: 1600px;
   perspective-origin: 50% 75px;
 }
 
-#display, .display{
+.display{
   transform-style: preserve-3d;
   transform: translateZ(0);
-  transition: .6s ease-in-out;
+  transition: .6s cubic-bezier(.5, -1, .5, 2);
 }
 
 .display-face{
   position: absolute;
   display: block;
-  background: rgba(200, 200, 200, .5);
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
+  background: rgba(225, 225, 225, .9);
+  border: 1px solid rgba(200, 200, 200, 1);
   text-align: center;
-  // width: $divSize;
-  // height: $divSize;
 }
 .display-face-inner{
   position: relative;

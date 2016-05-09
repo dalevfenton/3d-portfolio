@@ -41,15 +41,12 @@ var DisplayPod = React.createClass({
     //offsetZ sets the origin point to rotate around
     var offsetZ = -(this.props.faceSize/2) / Math.abs( getTanDeg(angle/2) );
     // console.log(this.props);
-    var displayStyle = { transform: "translateZ(-500px)" + "rotateY(-" + this.state.facing * angle + "deg)" };
-    console.log(this.props);
+    var displayStyle = { transform: "translateZ(-500px)" + "rotateY(-" + ((this.state.facing * angle)+10) + "deg)" };
     if(this.props.activePod !== this.props.index){
-      console.log('activePod is index #' + this.props.index);
       displayStyle = $.extend({}, displayStyle,
         { transform: "translateZ(-" + (8000 * (this.props.index + 1)) + "px)" +
           " translateX(-" + (8000 * (this.props.index + 1)) + "px)" +
-          " rotateY(-" + (this.state.facing * angle) + "deg)"} );
-        console.log(displayStyle);
+          " rotateY(-" + ((this.state.facing * angle)+10 )+ "deg)"} );
     }
 
     //inline styles for JSX elements
@@ -59,6 +56,9 @@ var DisplayPod = React.createClass({
     //build JSX for faces divs & button elements
     for(var i=0; i < this.props.posts.length; i++ ){
       var faceStyle = $.extend( {}, offsetStyle, sizeStyle, {transform: "rotateY(" + angle*i + "deg)" });
+      if(this.props.posts.length < 3){
+        faceStyle = $.extend({}, faceStyle, {transform: "rotateY(" + angle*i + "deg)" + "translateZ(50px)" } );
+      }
       var next = this.props.posts[i+1];
       var prev = this.props.posts[i-1];
       if(i===0){
