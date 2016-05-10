@@ -57,11 +57,15 @@ var Controller = React.createClass({
   },
   render: function(){
     var buttons = [];
-    console.log(this);
 
     var pods = _.map( this.categories, function(category, index){
-      var button = ( <button onClick={this.doRotation.bind(this, index)}
-        key={index}>{category[0].cat_rendered[0].cat_name}</button> );
+      var className = "cat-nav-button";
+      if(this.state.activePod === index){
+        className += " active";
+      }
+      var button = ( <a className={className} key={index} href={"#" + category[0].cat_rendered[0].category_nicename + "/"}>
+        {category[0].cat_rendered[0].cat_name}
+      </a> );
       buttons.push(button);
 
       return ( <DisplayPod posts={category} key={index} index={index}

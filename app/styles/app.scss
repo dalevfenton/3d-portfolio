@@ -16,24 +16,38 @@ html, body{
 }
 #sidebar{
   position: absolute;
-  bottom: 5%;
-  left: 5%;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 10;
+  padding: 10px 0;
+  background: white;
+  text-align: center;
+  a{
+    color: #177486;
+    font-family: Ubuntu, sans-serif;
+    font-weight: 700;
+    padding: 10px;
+    &.active{
+      background: #177486;
+      color: white;
+    }
+  }
 }
 
 .stage{
-  margin: 0 auto;
+  margin: 36px auto;
   perspective: 1600px;
   perspective-origin: 50% 75px;
 }
 
-.display{
+.display, .display-cat-ring{
   transform-style: preserve-3d;
   transform: translateZ(0);
-  transition: .6s cubic-bezier(.5, -1, .5, 2);
+  transition: .6s cubic-bezier(.5, -.5, .5, 1.5);
 }
 
-.display-face{
+.display-face, .display-cat-panel{
   position: absolute;
   display: block;
   background: rgba(225, 225, 225, .9);
@@ -42,8 +56,18 @@ html, body{
 }
 .display-face-inner{
   position: relative;
-  overflow: hidden;
-  height: 500px;
+  // overflow-y: auto;
+  // height: 500px;
+}
+.display-cat-ring{
+  animation: rotate 30s infinite linear;
+}
+.test-center{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  color: red;
+  background-color: red;
 }
 .display-face-img{
   position: absolute;
@@ -52,6 +76,9 @@ html, body{
 }
 .display-face-content-overlay{
   position: relative;
+}
+.display-face-content{
+  padding: 0 10px;
 }
 // animation: rotate 10s infinite linear;
 @keyframes rotate {
@@ -71,17 +98,42 @@ html, body{
 .display-face-content{
   font-family: Lato, sans-serif;
 }
+.display-face-links, .display-face-navigation{
+  margin: 1em auto;
+}
+.display-image-holder{
+  overflow: hidden;
+  position: relative;
+  margin: 10px;
+  width: 100%;
+  height: 300px;
+}
+.display-image-inner{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 .nav-button{
   display: inline-block;
   padding: 10px;
   text-align: center;
-  color: white;
-  background: #177486;
+  font-family: Ubuntu, sans-serif;
   width: 46%;
 }
-.nav-prev{
+.nav-prev, .nav-live{
   margin-right: 4%;
 }
-.nav-next{
+.nav-next, .nav-source{
   margin-left: -4px;
+}
+.nav-prev, .nav-next{
+  color: white;
+  background: #177486;
+}
+.nav-live, .nav-source{
+  color: #177486;
+  background: white;
+  border: 1px solid #177486;
 }

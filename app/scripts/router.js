@@ -8,13 +8,8 @@ var Router = Backbone.Router.extend({
     this.current = 'index';
   },
   parseSlug: function(cat, post){
-    if(cat){
       this.currentCat = cat;
       this.currentPost = post;
-    }else if(post){
-      this.currentCat = cat;
-      this.currentPost = null;
-    }
   }
 });
 
